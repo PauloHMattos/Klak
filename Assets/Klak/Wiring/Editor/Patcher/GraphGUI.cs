@@ -48,7 +48,7 @@ namespace Klak.Wiring.Patcher
                 _selectionStack.Clear();
 
             foreach (Node node in selection)
-                _selectionStack.Push(node.name);
+                if (node != null) _selectionStack.Push(node.name);
         }
 
         public void PopSelection()
@@ -193,6 +193,11 @@ namespace Klak.Wiring.Patcher
                     node.title, style, GUILayout.Width(150)
                 );
             }
+
+            // Workaround: If there is no node in the graph, put an empty
+            // window to avoid corruption due to a bug.
+            if (graph.nodes.Count == 0)
+                GUILayout.Window(0, new Rect(0, 0, 1, 1), delegate {}, "", "MiniLabel");
 
             m_Host.EndWindows();
 
