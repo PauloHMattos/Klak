@@ -30,7 +30,7 @@ namespace Klak.Wiring
     [CustomEditor(typeof(Patch))]
     public class PatchEditor : Editor
     {
-        [MenuItem("GameObject/Create Other/Klak/Patch")]
+        [MenuItem("GameObject/Klak/Patch", false, 10)]
         static void CreatePatch()
         {
             var go = new GameObject("Patch");
@@ -40,9 +40,8 @@ namespace Klak.Wiring
 
         public override void OnInspectorGUI()
         {
-            if (!EditorApplication.isPlaying)
-                if (GUILayout.Button("Open Patcher", "LargeButton"))
-                    Patcher.PatcherWindow.OpenPatch((Patch)target);
+            if (GUILayout.Button("Open Patcher", "LargeButton"))
+                Patcher.PatcherWindow.OpenPatch((Patch)target);
         }
     }
 }
